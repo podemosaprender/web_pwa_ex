@@ -8,12 +8,19 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 const BasePath= (process.env.GITHUB_REPOSITORY||'').replace(/^[^\/]*/,'') 
 
 import { VitePWA } from 'vite-plugin-pwa';
+import { comlink } from 'vite-plugin-comlink'
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	base: BasePath,
+	worker: {
+		plugins: () => ([
+			comlink()
+		])
+	},
 	plugins: [
 		react(),  
+		comlink(),
 		basicSsl(), 
 		splitVendorChunkPlugin(),
 		VitePWA({
@@ -44,5 +51,5 @@ export default defineConfig({
 				suppressWarnings: true,
 				type: 'module',
 			},
-		})],
+	})],
 })
