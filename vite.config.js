@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import { splitVendorChunkPlugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import basicSsl from '@vitejs/plugin-basic-ssl'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 //SEE: https://vitejs.dev/config/server-options.html#server-https
 
 const BasePath= (process.env.GITHUB_REPOSITORY||'').replace(/^[^\/]*/,'') 
@@ -15,13 +16,15 @@ export default defineConfig({
 	base: BasePath,
 	worker: {
 		plugins: () => ([
-			comlink()
+			nodePolyfills(),
+			comlink(),
 		])
 	},
 	plugins: [
-		react(),  
-		comlink(),
 		basicSsl(), 
+		react(),  
+		nodePolyfills(),
+		comlink(),
 		splitVendorChunkPlugin(),
 		VitePWA({
 			registerType: 'prompt',

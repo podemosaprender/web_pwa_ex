@@ -3,6 +3,34 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 
+import FS from '@isomorphic-git/lightning-fs'
+import git from 'isomorphic-git'
+import http from 'isomorphic-git/http/web'
+
+const fs= new FS()
+fs.init()
+const fsp= fs.promises
+window.fs= fs
+window.fsp= fsp
+
+window.gitt0= async () => {
+	const dir='/trepo';
+
+	await git.clone({
+		fs,
+		http,
+		dir,
+		corsProxy: 'https://cors.isomorphic-git.org',
+		url: 'https://github.com/isomorphic-git/isomorphic-git',
+		ref: 'main',
+		singleBranch: true,
+		depth: 10
+	});
+
+	// Now it should not be empty...
+	console.log(await fsp.readdir(dir))
+}
+
 const wi = new ComlinkWorker(new URL('./worker-ex0.js', import.meta.url), {/* normal Worker options*/})
 window.wi= wi;
 
