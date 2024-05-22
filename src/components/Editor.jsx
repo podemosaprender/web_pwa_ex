@@ -9,8 +9,8 @@ import { Vim, vim } from "@replit/codemirror-vim"
 Vim.vimKeyFromEventOri= Vim.vimKeyFromEvent
 Vim.vimKeyFromEvent= (e,vim) => {
 	console.log(e);
-	alert(e.charCodeAt(0))
-	if (e.key=='£') { e= {...e, key: 'Escape', charCode: 0, keyCode: 27} }
+	alert('CODE '+e.key.charCodeAt(0))
+	if (e.key=='A') { e= {...e, key: 'Escape', charCode: 0, keyCode: 27} }
 	return Vim.vimKeyFromEventOri(e,vim);
 } //A: use £ as ESC on android GBoard
 
