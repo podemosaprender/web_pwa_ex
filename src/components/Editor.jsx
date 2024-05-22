@@ -5,7 +5,13 @@ import { javascript } from '@codemirror/lang-javascript';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
 
-import { vim } from "@replit/codemirror-vim"
+import { Vim, vim } from "@replit/codemirror-vim"
+Vim.vimKeyFromEventOri= Vim.vimKeyFromEvent
+Vim.vimKeyFromEvent= (e,vim) => {
+	console.log(e);
+	if (e.key=='£') { e= {...e, key: 'Escape', charCode: 0, keyCode: 27} }
+	return Vim.vimKeyFromEventOri(e,vim);
+} //A: use £ as ESC on android GBoard
 
 export function Editor({value, onChange}) {
 	const onChangeImpl = useCallback((val, viewUpdate) => {
