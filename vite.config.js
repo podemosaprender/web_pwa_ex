@@ -11,6 +11,20 @@ const BasePath= (process.env.GITHUB_REPOSITORY||'').replace(/^[^\/]*/,'')
 import { VitePWA } from 'vite-plugin-pwa';
 import { comlink } from 'vite-plugin-comlink'
 
+function manualChunks(id) {
+	console.log("manualChunks",id);
+	if (id.includes('node_modules')) {
+		return (
+			id.includes('prime') ? 'vendor-prime' :
+			id.includes('lezer') ? 'vendor-lezer' :
+			id.includes('mirror') ? 'vendor-mirror' :
+			id.includes('git') ? 'vendor-git' :
+			'vendor'
+		)
+	}
+}
+
+
 // https://vitejs.dev/config/
 export default defineConfig({
 	base: BasePath,
@@ -55,4 +69,7 @@ export default defineConfig({
 				type: 'module',
 			},
 	})],
+	build: {
+		rollupOptions: { output: { manualChunks }},
+	},
 })

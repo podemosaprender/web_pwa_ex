@@ -11,9 +11,17 @@
   },
   "dependencies": {
     "@isomorphic-git/lightning-fs": "^4.6.0",
+    "@replit/codemirror-vim": "^6.2.1",
+    "@uiw/codemirror-extensions-color": "^4.21.21",
+    "@uiw/codemirror-extensions-langs": "^4.21.21",
+    "@uiw/codemirror-themes-all": "^4.21.21",
+    "@uiw/react-codemirror": "^4.21.21",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "comlink": "^4.4.1",
     "isomorphic-git": "^1.25.10",
+    "primeflex": "^3.3.1",
+    "primeicons": "^6.0.1",
+    "primereact": "^10.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

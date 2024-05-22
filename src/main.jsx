@@ -1,46 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+//S: prime {
+import 'primeflex/primeflex.css'; //SEE: https://primereact.org/calendar/
+import 'primeicons/primeicons.css'; //SEE: https://primereact.org/icons/#list
+import 'primereact/resources/themes/lara-dark-purple/theme.css' //SEE: https://primereact.org/calendar/
+//OPT: import "primereact/resources/themes/lara-light-cyan/theme.css";
 import './index.css'
+import { PrimeReactProvider } from 'primereact/api';
+// } prime
 
-import FS from '@isomorphic-git/lightning-fs'
-import git from 'isomorphic-git'
-import http from 'isomorphic-git/http/web'
-
-const fs= new FS()
-fs.init()
-const fsp= fs.promises
-window.fs= fs
-window.fsp= fsp
-
-window.gitt0= async () => {
-	const dir='/trepo';
-
-	await git.clone({
-		fs,
-		http,
-		dir,
-		corsProxy: 'https://cors.isomorphic-git.org',
-		url: 'https://github.com/isomorphic-git/isomorphic-git',
-		ref: 'main',
-		singleBranch: true,
-		depth: 10
-	});
-
-	// Now it should not be empty...
-	console.log(await fsp.readdir(dir))
-}
-
-const wi = new ComlinkWorker(new URL('./worker-ex0.js', import.meta.url), {/* normal Worker options*/})
-window.wi= wi;
-
-/* U: shared worker 
-const wig = new ComlinkWorker(new URL('./worker-git.js', import.meta.url), {type: 'module'})
-window.wig= wig;
-*/ 
+import {App} from './App.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+		<PrimeReactProvider>
+			<App/>
+		</PrimeReactProvider>
   </React.StrictMode>,
 )
