@@ -33,6 +33,7 @@ export function Editor({value, onChange}) {
 					bracketMatching: true,
 					autocompletion: true,
 					tabSize: 2,
+					lineWrapping: true,
 				}}
 			/>
 		</>)
