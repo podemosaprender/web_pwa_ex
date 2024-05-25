@@ -21,7 +21,7 @@ export function App() {
 	}
 
 	const onMorseDown= useCallback(
-		()=> {
+		(e)=> { e.preventDefault();
 			console.log("DOWN"); 
 			const dt=(new Date()-t0);
 			const t= dt<400 ? '' : '\n';
@@ -32,7 +32,7 @@ export function App() {
 	)
 
 	const onMorseUp= useCallback(
-		() => {
+		(e) => { e.preventDefault();
 			const dt=(new Date()-t0);
 			const t= dt<100 ? '.' : '-';
 			t0= new Date();
@@ -43,15 +43,15 @@ export function App() {
 	)
 
   return (
-    <>
+    <div>
       <h1>pwa-tut0</h1>
-			<Button label="morse" 
-				onMouseDown={onMorseDown}
-				onMouseUp={onMorseUp} 
-			/>
 			<Editor value={txt} onChange={onChange}/>
+			<Button label="morse" 
+				onPointerDown={onMorseDown}
+				onPointerUp={onMorseUp} 
+			/>	
       <PWABadge />
-    </>
+    </div>
   )
 }
 

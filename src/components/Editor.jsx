@@ -22,7 +22,7 @@ export function Editor({value, onChange}) {
 			<CodeMirror
 				value={value}	
 				onChange={onChangeImpl} 
-				height="95vh" 
+				height="70vh" 
 				extensions={[
 					vim(),
 					markdown({ base: markdownLanguage, codeLanguages: languages }),
