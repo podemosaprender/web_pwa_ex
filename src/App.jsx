@@ -3,7 +3,10 @@ import { useState, useEffect, useCallback } from 'react'
 import PWABadge from './PWABadge'
 
 import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+
 import { Editor } from './components/Editor'
+import { MorseLine } from './components/MorseLine';
 
 import { fsp } from './svc/git'
 import { morseToText } from './svc/morse.js'
@@ -13,6 +16,7 @@ let t0;
 let oscillator; //A: must be initialized by UI interaction
 
 export function App() {
+	const [phrase,setPhrase]= useState('')
 	const [txt,setTxt]= useState('')
 
 	useEffect(() => {
@@ -48,10 +52,15 @@ export function App() {
 	  [txt, setTxt]
 	)
 
+	// <Editor value={txt} onChange={onChange}/>
+
   return (
     <div>
-      <h1>pwa-tut0</h1>
-			<Editor value={txt} onChange={onChange}/>
+			<InputText placeholder="Your phrase" onChange={(e) => setPhrase(e.target.value)} value={phrase} />
+			{ phrase.split('').map( (l,idx) => 
+					<MorseLine key={idx} letter={l}/>
+				)
+			}
 			<Button label="morse" 
 				onPointerDown={onMorseDown}
 				onPointerUp={onMorseUp} 

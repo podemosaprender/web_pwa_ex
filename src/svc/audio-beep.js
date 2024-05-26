@@ -31,4 +31,25 @@ export function beep(duration, frequency, volume, type, callback) {
 	oscillator.stop(audioCtx().currentTime + ((duration || 500) / 1000));
 };
 
+export function beep_dots(dots, duration, onProgress) {
+	let oscillator;
+	let i= 0;
+	return new Promise( (onDone) => {
+		const beep_dot = () => {
+			//DBG: console.log("beep_dot",{i,dots})
+			if (i<dots.length) { const dot= dots[i]; i++;
+				//DBG: console.log("beep_dot",{i,dot});
+				if (dot==' ') { oscillator.stop(); oscillator=null; }
+				else if (!oscillator) { oscillator= mkOscillator(1000); oscillator.start() }
+				setTimeout(beep_dot, duration);
+				if (onProgress) { requestAnimationFrame(() => onProgress(i,dot,dots)) }
+			} else {
+				if (oscillator) { oscillator.stop() }
+				onDone();
+			}
+		}
+		beep_dot();
+	})
+}
+
 window.beep= beep
