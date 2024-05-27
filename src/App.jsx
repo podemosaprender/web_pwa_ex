@@ -11,6 +11,7 @@ import { MorseLine } from './components/MorseLine';
 import { fsp } from './svc/git'
 import { morseToText } from './svc/morse.js'
 import { mkOscillator } from './svc/audio-beep.js'
+import { speech_from_text_p } from './svc/speech-from-text'
 
 let t0;
 let oscillator; //A: must be initialized by UI interaction
@@ -61,10 +62,13 @@ export function App() {
 					<MorseLine key={idx} letter={l}/>
 				)
 			}
-			<Button label="morse" 
+			<Button label="speak"
+				onClick={ () => speech_from_text_p("Hola Mauricio!") }
+			/>
+			<button label="morse" 
 				onPointerDown={onMorseDown}
 				onPointerUp={onMorseUp} 
-			/>	
+			>Morse</button>
       <PWABadge />
     </div>
   )
